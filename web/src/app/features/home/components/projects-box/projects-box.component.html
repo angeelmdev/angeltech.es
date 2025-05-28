@@ -1,0 +1,21 @@
+<div class="p-5" style="background-color: rgb(46, 46, 46);">
+
+    <h2 class="text-white pb-5"><i class="fa-regular fa-folder-open"></i> Lista de proyectos</h2>
+
+    <div class="row">
+        @for (project of projects; track project.id) {
+        <div class="col">
+            <app-project-button 
+            class="mt-3 mb-3" 
+            [projectName]=project.name 
+            [projectUrl]=project.url
+            [projectDescription]=project.description
+            [isAngular]=project.isAngular
+            [isSymfony]=project.isSymfony
+            [isNode]=project.isNode
+            [isBootstrap]=project.isBootstrap
+            ></app-project-button>
+        </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,8 @@
+# config/routes.yaml
+api_login_check:
+    path: /api/login_check
+
+app_user_create:
+    path: /api/user
+    controller: App\Controller\UserController::create
+    methods: POST

@@ -1,0 +1,22 @@
+<div class="card mb-5" style="width: 25rem;">
+    <div class="card-body" (click)="redirectToProject()">
+        <img class="card-img-top mb-3" src="/assets/img/test.png" alt="Card image cap">
+        <h5 class="card-title">{{projectName}}</h5>
+        <p class="card-text">{{projectDescription}}</p>
+    </div>
+
+    <div class="my-3">
+        @if (isAngular) {
+            <a class="ms-3" href="https://angular.dev" target="_blank" ><i class="fa-brands fa-angular" style="color: #e90000;"></i></a>
+        }
+        @if (isSymfony){
+            <a class="ms-3" href="https://symfony.com" target="_blank" ><i class="fa-brands fa-symfony" style="color: #000000;"></i></a>
+        }
+        @if (isNode){
+            <a class="ms-3" href="https://nodejs.org" target="_blank" ><i class="fa-brands fa-node-js" style="color: #08b402;"></i></a>
+        }
+        @if (isBootstrap){
+            <a class="ms-3" href="https://getbootstrap.com" target="_blank" ><i class="fa-brands fa-bootstrap" style="color: #4002b4;"></i></a>
+        }
+    </div>
+</div>
