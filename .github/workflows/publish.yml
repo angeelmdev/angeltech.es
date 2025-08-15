@@ -20,8 +20,8 @@ jobs:
       
       - name: Build image
         run: | 
-          docker build . --tag ghcr.io/angeelmdev/angeltech.es:latest
-          docker push ghcr.io/angeelmdev/angeltech.es:latest
+          docker build . --tag ghcr.io/angeelmdev/angeltech.es/web:latest
+          docker push ghcr.io/angeelmdev/angeltech.es/web:latest
   
   desploy:
     needs: create-docker-image
