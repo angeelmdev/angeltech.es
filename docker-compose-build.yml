@@ -2,15 +2,12 @@ services:
   web:
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     image: ghcr.io/angeelmdev/angeltech.es/web:latest
     ports:
       - "8050:8000"
     environment:
       DATABASE_URL: ${DATABASE_URL}
-    volumes:
-      - .:/var/www/html
-      - ./vendor:/var/www/html/vendor
     depends_on:
       - db
     networks:
@@ -34,3 +31,4 @@ networks:
 
 volumes:
   data:
+  
