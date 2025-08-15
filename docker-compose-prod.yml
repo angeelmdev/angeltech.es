@@ -1,40 +1,30 @@
 services:
-    web:
-        image: registry.gitlab.com/angeelmdev/angeltech.es/web:latest
-        expose:
-            - "4200"
-        networks:
-            - network_angeltech
+  web:
+    image: ghcr.io/angeelmdev/angeltech.es/web:latest
+    ports:
+      - "8050:8000"
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+    depends_on:
+      - db
+    networks:
+      - network_angeltech
 
-    api:
-        image: registry.gitlab.com/angeelmdev/angeltech.es/api:latest
-        ports:
-            - "8080:8000"
-        networks:
-            - network_angeltech
-
-    mariadb:
-        image: mariadb:11.7.2
-        environment:
-            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-            MYSQL_USER: ${MYSQL_USER}
-            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-            MYSQL_DATABASE: ${MYSQL_DATABASE}
-        ports:
-            - "3306:3306"
-        volumes:
-            - ./data:/var/lib/mysql
-        networks:
-            - network_angeltech
-
-    nginx:
-        image: nginx:latest
-        ports:
-            - "5012:80"
-        volumes:
-            - ./nginx.conf:/etc/nginx/nginx.conf
-        networks:
-            - network_angeltech
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    expose:
+      - "5432"
+    volumes:
+      - ./data:/var/lib/postgresql/data:rw
+    networks:
+      - network_angeltech
 
 networks:
   network_angeltech:
+
+volumes:
+  data:

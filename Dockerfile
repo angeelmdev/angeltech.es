@@ -1,0 +1,31 @@
+FROM php:8.2-fpm
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    git \
+    unzip \
+    zip \
+    curl \
+    libicu-dev \
+    libonig-dev \
+    && docker-php-ext-install pdo pdo_pgsql intl opcache \
+    && rm -rf /var/lib/apt/lists/*
+
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+RUN curl -sS https://get.symfony.com/cli/installer | bash \
+    && mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
+ENV COMPOSER_ALLOW_SUPERUSER=1
+RUN useradd -m symfony
+USER symfony
+
+WORKDIR /var/www/html
+
+COPY --chown=symfony:symfony . .
+RUN composer install --no-interaction --optimize-autoloader
+
+EXPOSE 8000
+
+CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"]

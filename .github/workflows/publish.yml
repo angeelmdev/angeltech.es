@@ -1,0 +1,40 @@
+name: publish
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  create-docker-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+      
+      - name: Login to Github Container Register
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.TOKEN_CD }}
+      
+      - name: Build image
+        run: | 
+          docker build . --tag ghcr.io/angeelmdev/angeltech.es:latest
+          docker push ghcr.io/angeelmdev/angeltech.es:latest
+  
+  desploy:
+    needs: create-docker-image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install sshpass
+        run: sudo apt-get install -y sshpass
+      
+      - name: SSH into Server
+        run: |
+          sshpass -p ${{ secrets.AUTH_PASS }} ssh -o StrictHostKeyChecking=no ${{ secrets.AUTH_SERVER }} << EOF
+            cd /srv/docker/angeltech
+            docker login ghcr.io -u angeelmdev -p ${{ secrets.TOKEN_CD }}
+            docker compose pull
+            docker compose down && docker compose up -d
+          EOF
