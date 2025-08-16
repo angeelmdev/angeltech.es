@@ -21,7 +21,9 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-free": "^7.0.0",
         "@tailwindcss/postcss": "^4.1.12",
+        "flowbite": "^3.1.2",
         "postcss": "^8.5.6",
         "postcss-loader": "^8.1.1",
         "tailwindcss": "^4.1.12"

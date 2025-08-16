@@ -74,6 +74,7 @@ Encore
 
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
+    .addStyleEntry('cubes', './assets/styles/cubes.css')
     
     .enablePostCssLoader()
 ;

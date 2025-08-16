@@ -1,2 +1,7 @@
 @import "tailwindcss";
+@plugin "flowbite/plugin";
+@source "../../node_modules/flowbite";
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+@import "flowbite/src/themes/default";
 @source not "../../public";
