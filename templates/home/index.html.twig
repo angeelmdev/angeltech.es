@@ -1,27 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Prueba Tailwind{% endblock %}
 
 {% block body %}
-    <!-- Barra de navegación transparente -->
-    <nav class="fixed top-0 left-0 w-full bg-transparent z-50 p-4">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="text-white font-bold text-xl">MiLogo</div>
-            <div class="space-x-4">
-                <a href="#" class="text-white hover:text-gray-300">Inicio</a>
-                <a href="#" class="text-white hover:text-gray-300">Sobre mí</a>
-                <a href="#" class="text-white hover:text-gray-300">Contacto</a>
-            </div>
+<div class="max-w-7xl mx-auto p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for i in 1..5 %}
+    <div class="bg-white shadow-lg rounded-lg overflow-hidden flex">
+        <!-- Imagen izquierda -->
+        <div class="w-1/3">
+            <img src="{{asset('images/cat.jpg')}}" alt="Imagen de prueba" class="h-full w-full object-cover">
         </div>
-    </nav>
-
-    <!-- Contenido de ejemplo debajo -->
-    <div>
-        <section class="h-screen bg-gradient-to-b from-blue-500 to-purple-600 flex items-center justify-center">
-            <h1 class="text-white text-4xl font-bold">Contenido visible debajo de la barra</h1>
-        </section>
-        <section class="h-screen bg-green-500 flex items-center justify-center">
-            <h2 class="text-white text-3xl font-semibold">Otra sección</h2>
-        </section>
+        <div class="w-2/3 p-4 flex flex-col justify-center">
+            <h2 class="text-lg font-semibold mb-2">Título de la tarjeta {{ i }}</h2>
+            <p class="text-gray-600">Este es un texto de prueba para la tarjeta {{ i }}. Aquí puedes poner cualquier descripción.</p>
+        </div>
     </div>
+    {% endfor %}
+</div>
 {% endblock %}
