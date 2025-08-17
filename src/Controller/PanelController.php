@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class PanelController extends AbstractController
 {
-    #[Route('/panel', name: 'app_panel')]
+    #[Route('/panel', name: 'panel')]
     public function index(): Response
     {
         return $this->render('pages/panel/index.html.twig', [
