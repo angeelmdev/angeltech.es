@@ -2,47 +2,25 @@
 
 namespace App\Controller;
 
+use App\Entity\Project;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class HomeController extends AbstractController
 {
+    private $em;
+
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+    }
+
     #[Route('/', name: 'app_home')]
     public function index(): Response
     {
-        $projects = [
-            [
-                'image' => '/images/cat.jpg',
-                'title' => 'Proyecto 1',
-                'description' => 'Descripción breve del proyecto 1'
-            ],
-            [
-                'image' => '/images/cat.jpg',
-                'title' => 'Proyecto 2',
-                'description' => 'Descripción breve del proyecto 2'
-            ],
-            [
-                'image' => '/images/cat.jpg',
-                'title' => 'Proyecto 3',
-                'description' => 'Descripción breve del proyecto 3'
-            ],
-                        [
-                'image' => '/images/cat.jpg',
-                'title' => 'Proyecto 4',
-                'description' => 'Descripción breve del proyecto 1'
-            ],
-            [
-                'image' => '/images/cat.jpg',
-                'title' => 'Proyecto 5',
-                'description' => 'Descripción breve del proyecto 2'
-            ],
-            [
-                'image' => '/images/cat.jpg',
-                'title' => 'Proyecto 6',
-                'description' => 'Descripción breve del proyecto 3'
-            ],
-        ];
+        $projects = $this->em->getRepository(Project::class)->findAll();
 
         return $this->render('pages/home/index.html.twig', [
             'projects' => $projects
