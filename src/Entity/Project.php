@@ -26,6 +26,9 @@ class Project
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $url_github = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +78,18 @@ class Project
     public function setImage(?string $image): static
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getUrlGithub(): ?string
+    {
+        return $this->url_github;
+    }
+
+    public function setUrlGithub(?string $url_github): static
+    {
+        $this->url_github = $url_github;
 
         return $this;
     }
