@@ -2,6 +2,13 @@
 
 {% block title %}Hello PanelController!{% endblock %}
 
-{% block body %}
+{% block body %} 
     {% include 'components/navbar-panel.twig' %}
+
+    <div id="proyectos">
+        <h2 class="px-10 pt-20 pb-5 text-2xl font-bold text-black text-center">
+            NUEVO PROYECTO
+        </h2>
+        {% include 'components/register-project-box.twig' %}
+    </div>
 {% endblock %}
