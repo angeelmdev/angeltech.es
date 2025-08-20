@@ -30,7 +30,7 @@ RUN composer install --no-interaction --optimize-autoloader --no-scripts
 
 # Instalar dependencias JS y compilar assets
 RUN npm install
-RUN npm run build # o yarn install && yarn encore production si usas yarn
+RUN npm run build
 
 EXPOSE 8000
 

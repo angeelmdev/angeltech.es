@@ -1,5 +1,5 @@
 services:
-  web:
+  php:
     build:
       context: .
       dockerfile: Dockerfile.dev
@@ -15,6 +15,18 @@ services:
       - db
     networks:
       - network_angeltech
+
+  node:
+    image: node:20
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+      - ./node_modules:/var/www/html/node_modules
+    command: npm run watch
+    networks:
+      - network_angeltech
+    depends_on:
+      - php
 
   db:
     image: postgres:17
