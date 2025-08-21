@@ -16,6 +16,9 @@ framework:
     #fragments: true
     php_errors:
         log: true
+    
+    trusted_proxies: '127.0.0.1,REMOTE_ADDR'
+    trusted_headers: [ 'x-forwarded-for', 'x-forwarded-proto' ]
 
 when@test:
     framework:
