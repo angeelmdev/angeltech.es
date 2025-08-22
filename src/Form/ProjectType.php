@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Validator\Constraints\Length;
 
 class ProjectType extends AbstractType
 {
@@ -16,7 +17,8 @@ class ProjectType extends AbstractType
             ->add('title', null, [
                 'label' => 'Título del proyecto',
                 'attr' => [
-                    'class' => 'block mb-4 w-full p-2.5 text-gray-900 border border-gray-300 rounded-lg bg-white text-sm focus:ring-blue-500 focus:border-blue-500'
+                    'class' => 'block mb-4 w-full p-2.5 text-gray-900 border border-gray-300 rounded-lg bg-white text-sm focus:ring-blue-500 focus:border-blue-500',
+                    'maxlength' => 250
                 ],
                 'label_attr' => [
                     'class' => 'block mb-2 text-sm font-medium text-gray-900'
@@ -26,10 +28,17 @@ class ProjectType extends AbstractType
                 'label' => 'Descripción del proyecto',
                 'attr' => [
                     'class' => 'block mb-4 w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-white text-base focus:ring-blue-500 focus:border-blue-500',
-                    'rows' => 4
+                    'rows' => 4,
+                    'maxlength' => 250
                 ],
                 'label_attr' => [
                     'class' => 'block mb-2 text-sm font-medium text-gray-900'
+                ],
+                'constraints' => [
+                    new Length([
+                        'max' => 250,
+                        'maxMessage' => 'La descripción no puede superar {{ limit }} caracteres.',
+                    ]),
                 ],
             ])
             ->add('url_github', null, [

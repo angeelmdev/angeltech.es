@@ -22,6 +22,8 @@ final class PanelController extends AbstractController
     #[Route('/panel', name: 'panel')]
     public function index(Request $request): Response
     {
+        $projects = $this->em->getRepository(Project::class)->findAll();
+
         $project = new Project();
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
@@ -35,7 +37,8 @@ final class PanelController extends AbstractController
 
         return $this->render('pages/panel/index.html.twig', [
             'controller_name' => 'PanelController',
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'projects' => $projects
         ]);
     }
 }
