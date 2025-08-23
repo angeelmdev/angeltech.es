@@ -1,15 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello LoginController!{% endblock %}
+{% block title %}Iniciar sesión{% endblock %}
 
 {% block body %}
 <section class="bg-gray-50">
-    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900">
-            <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo">
-            Flowbite    
+    <div class="flex flex-col items-center px-4 justify-center h-screen">
+        <a href="/">
+            <div class="flex items-center font-semibold text-gray-900 pb-10">      
+                {% include 'components/logo-angeltech.twig' with { width: '50', color: '#000000' } %}
+                <span class="self-center text-xl whitespace-nowrap">Ángel Moreno</span>
+            </div>
         </a>
-        <!-- Contenedor con sombra -->
         <div class="w-full sm:max-w-md bg-white rounded-lg shadow-xl p-6">
             <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl mb-4">
                 Iniciar sesión
@@ -17,7 +18,7 @@
             <form action="{{ path('login') }}" method="post" class="space-y-4">
                 <div>
                     <label for="_username" class="block mb-2 text-sm font-medium text-gray-900">Correo electrónico</label>
-                    <input type="email" name="_username" id="_username" value="{{ last_username|default('') }}" placeholder="name@example.com" required
+                    <input type="email" name="_username" id="_username" value="{{ last_username|default('') }}" placeholder="nombre@example.com" required
                            class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                 </div>
                 <div>
