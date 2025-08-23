@@ -8,10 +8,12 @@
 
 <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
    <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-      <div class="flex items-center font-semibold text-white pb-5">      
-         {% include 'components/logo-angeltech.twig' with { width: '35', color: '#ffffff' } %}
-         <span class="self-center text-xl whitespace-nowrap">Ángel Moreno</span>
-      </div>
+      <a href="/">
+         <div class="flex items-center font-semibold text-white pb-5">      
+            {% include 'components/logo-angeltech.twig' with { width: '35', color: '#ffffff' } %}
+            <span class="self-center text-xl whitespace-nowrap">Ángel Moreno</span>
+         </div>
+      </a>
       <ul class="space-y-2 font-medium">
          <li>
             <button data-target="proyectos" 
@@ -27,6 +29,7 @@
                Usuarios
             </button>
          </li>
+         <div class="border-t border-gray-300 dark:border-gray-600 my-4"></div>
          <li>
             <a href="{{ path('logout') }}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                {% include 'icons/logout.svg.twig' %}

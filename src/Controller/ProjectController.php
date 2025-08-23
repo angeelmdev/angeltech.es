@@ -3,24 +3,20 @@
 namespace App\Controller;
 
 use App\Entity\Project;
+use App\Service\ProjectService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use App\Repository\ProjectRepository;
 
 final class ProjectController extends AbstractController
 {
     public function __construct(
-        private EntityManagerInterface $em,
-        private ProjectRepository $projectRepository
+        private ProjectService $projectService
     ) {}
 
     #[Route('/api/projects', methods: ['POST'])]
-    public function create(
-        Request $request
-    ): JsonResponse
+    public function create(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
 
@@ -29,17 +25,12 @@ final class ProjectController extends AbstractController
         }
 
         $project = new Project();
-        
         $project->setTitle($data['title']);
         $project->setDescription($data['description']);
+        $project->setUrl($data['url'] ?? null);
+        $project->setUrlGithub($data['url_github'] ?? null);
 
-        if (!isset($data['url'], $data['url_github'])) {
-            $project->setUrl($data['url']);
-            $project->setUrlGithub($data['url_github']);
-        }
-
-        $this->em->persist($project);
-        $this->em->flush();
+        $this->projectService->save($project);
 
         return $this->json([
             'id' => $project->getId(),
@@ -53,7 +44,7 @@ final class ProjectController extends AbstractController
     #[Route('/api/projects', methods: ['GET'])]
     public function list(): JsonResponse
     {
-        $projects = $this->projectRepository->findAll();
+        $projects = $this->projectService->list();
 
         $data = array_map(fn(Project $project) => [
             'id' => $project->getId(),
@@ -66,17 +57,14 @@ final class ProjectController extends AbstractController
         return $this->json($data);
     }
 
-    #[Route('/api/projects/{id}', methods: ['DELETE'])]
-    public function delete(int $id): JsonResponse
+    #[Route('/api/projects/{id}', name: 'project_delete', methods: ['DELETE'])]
+    public function delete(Project $project): JsonResponse
     {
-        $project = $this->projectRepository->find($id);
-
         if (!$project) {
             return $this->json(['error' => 'Proyecto no encontrado'], 404);
         }
 
-        $this->em->remove($project);
-        $this->em->flush();
+        $this->projectService->delete($project);
 
         return $this->json(['message' => 'Proyecto eliminado correctamente'], 200);
     }
