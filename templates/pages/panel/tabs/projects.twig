@@ -2,11 +2,11 @@
     <div class="ps-10">
         <h2 class="pt-5 pb-10 text-3xl font-bold text-black">PROYECTOS</h2>
         
-        {% include 'components/modal-project.twig' %}
+        {% include 'pages/panel/components/modal-create-project.twig' %}
         
         <div class="max-w-7xl mx-auto pt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {% for project in projects|reverse %}
-                {% include 'components/card-project-panel.twig' with {
+                {% include 'pages/panel/components/card-project-panel.twig' with {
                     project: project
                 } %}
             {% endfor %}
