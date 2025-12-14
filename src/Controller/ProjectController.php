@@ -68,4 +68,43 @@ final class ProjectController extends AbstractController
 
         return $this->json(['message' => 'Proyecto eliminado correctamente'], 200);
     }
+
+    #[Route('/api/projects/{id}/move', name: 'project_move', methods: ['POST'])]
+    public function move(Project $project, Request $request): JsonResponse
+    {
+        if (!$project) {
+            return $this->json(['error' => 'Proyecto no encontrado'], 404);
+        }
+
+        $data = json_decode($request->getContent(), true);
+        $direction = $data['direction'] ?? null;
+
+        if (!in_array($direction, ['left', 'right'])) {
+            return $this->json(['error' => 'Dirección inválida. Use "left" o "right"'], 400);
+        }
+
+        $projects = $this->projectService->list();
+
+        $currentIndex = null;
+        foreach ($projects as $index => $p) {
+            if ($p->getId() === $project->getId()) {
+                $currentIndex = $index;
+                break;
+            }
+        }
+
+        if ($currentIndex === null) {
+            return $this->json(['error' => 'Proyecto no encontrado en la lista'], 404);
+        }
+
+        $targetIndex = $direction === 'left' ? $currentIndex - 1 : $currentIndex + 1;
+
+        if ($targetIndex < 0 || $targetIndex >= count($projects)) {
+            return $this->json(['message' => 'No se puede mover en esa dirección'], 200);
+        }
+
+        $this->projectService->swapPositions($project, $projects[$targetIndex]);
+
+        return $this->json(['message' => 'Proyecto movido correctamente'], 200);
+    }
 }

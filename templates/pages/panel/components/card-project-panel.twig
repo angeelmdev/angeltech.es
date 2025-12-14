@@ -22,13 +22,21 @@
         {% endif %}
 
         <div class="flex justify-end">
-            <button 
-                class="edit-btn block p-2 mr-2 text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm text-center"
+            <button
+                class="move-left-btn block p-2 mr-2 font-medium rounded-lg text-sm text-center {{ isFirst ? 'text-gray-600 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700' }}"
                 data-id="{{ project.id }}"
-                type="button">
-                <i class="fa-solid fa-edit"></i>
+                type="button"
+                {{ isFirst ? 'disabled style=background-color:#cacccf' : '' }}>
+                <i class="fa-solid fa-arrow-left"></i>
             </button>
-            <button 
+            <button
+                class="move-right-btn block p-2 mr-2 font-medium rounded-lg text-sm text-center {{ isLast ? 'text-gray-600 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700' }}"
+                data-id="{{ project.id }}"
+                type="button"
+                {{ isLast ? 'disabled style=background-color:#cacccf' : '' }}>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+            <button
                 class="delete-btn block p-2 text-white bg-red-600 hover:bg-red-700 font-medium rounded-lg text-sm text-center"
                 data-id="{{ project.id }}"
                 type="button">
