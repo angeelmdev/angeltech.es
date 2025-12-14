@@ -8,17 +8,17 @@
 {% block title %}Inicio{% endblock %}
 
 {% block body %}
-    {% include 'components/navbar.twig' %}
+    {% include 'pages/home/components/navbar.twig' %}
 
     <main>
-        {% include 'components/cube-background.twig' %}
+        {% include 'pages/home/components/cube-background.twig' %}
         <section id="proyectos">
             <h1 class="px-10 pt-20 pb-5 text-4xl font-bold text-black text-center">
                 PROYECTOS
             </h1>
             <div class="max-w-7xl mx-auto p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {% for project in projects|reverse %}
-                    {% include 'components/card-project.twig' with {
+                    {% include 'pages/home/components/card-project.twig' with {
                         image: project.image,
                         title: project.title,
                         description: project.description,
@@ -35,9 +35,9 @@
             <h1 class="px-10 pb-5 text-4xl font-bold text-black">
                 CONTACTO
             </h1>
-            {% include 'components/social-box.twig' %}
+            {% include 'pages/home/components/social-box.twig' %}
         </section>
     </main>
 
-    {% include 'components/footer.twig' %}
+    {% include 'pages/home/components/footer.twig' %}
 {% endblock %}

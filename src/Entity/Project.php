@@ -29,6 +29,9 @@ class Project
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $url_github = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $position = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +93,18 @@ class Project
     public function setUrlGithub(?string $url_github): static
     {
         $this->url_github = $url_github;
+
+        return $this;
+    }
+
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(int $position): static
+    {
+        $this->position = $position;
 
         return $this;
     }
